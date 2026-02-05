@@ -1,0 +1,56 @@
+# Production Docker Compose
+# Untuk development, gunakan: docker-compose -f docker-compose.dev.yml up
+
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: bookingroom_db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: bookingroom
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d bookingroom"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: bookingroom_app
+    restart: always
+    ports:
+      - "4000:3000"
+    environment:
+      DATABASE_URL: "postgresql://admin:password123@db:5432/bookingroom?schema=public"
+      NEXTAUTH_SECRET: "39e0ba30206691494924a87c12660d5c"
+      NEXTAUTH_URL: "http://localhost:4000"
+      AUTH_TRUST_HOST: "true"
+      NODE_ENV: "production"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: bookingroom_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

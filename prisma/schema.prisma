@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  username      String?   @unique
+  email         String    @unique
+  password      String?
+  role          Role      @default(USER)
+  isLdap        Boolean   @default(false)
+  bookings      Booking[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Room {
+  id           String    @id @default(cuid())
+  name         String
+  description  String?
+  capacity     Int
+  facilities   String[]
+  image        String?
+  bookings     Booking[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Booking {
+  id          String        @id @default(cuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id])
+  roomId      String
+  room        Room          @relation(fields: [roomId], references: [id])
+  title       String
+  startTime   DateTime
+  endTime     DateTime
+  description String?
+  status      BookingStatus @default(PENDING)
+  notes       String?       // For admin rejection reasons or special requests
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Setting {
+  id    String @id @default("global")
+  key   String @unique
+  value String
+}
