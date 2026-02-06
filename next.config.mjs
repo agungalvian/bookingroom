@@ -11,6 +11,7 @@ const nextConfig = {
     buildActivity: false,
     appIsrStatus: false,
   },
+  serverComponentsExternalPackages: ['bcryptjs'],
 };
 
 export default nextConfig;
