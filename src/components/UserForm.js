@@ -132,6 +132,7 @@ export default function UserForm({ user = null }) {
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 >
                     <option value="USER">User</option>
+                    <option value="PENGELOLA">Pengelola</option>
                     <option value="ADMIN">Admin</option>
                 </select>
             </div>
