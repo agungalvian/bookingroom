@@ -185,35 +185,37 @@ export default function MonthlyReportView({ data, currentMonth, currentYear }) {
                         <MapPin size={20} className="text-primary" />
                         Penggunaan Ruang Meeting
                     </h3>
-                    <table className="report-table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Ruangan</th>
-                                <th>Kapasitas</th>
-                                <th>Jumlah Pemesanan</th>
-                                <th>Total Jam Penggunaan</th>
-                                <th>Persentase</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.roomStats.map((room, idx) => {
-                                const percentage = data.stats.approved > 0
-                                    ? ((room.bookingCount / data.stats.approved) * 100).toFixed(1)
-                                    : 0;
-                                return (
-                                    <tr key={idx}>
-                                        <td>{idx + 1}</td>
-                                        <td className="font-medium">{room.name}</td>
-                                        <td>{room.capacity} orang</td>
-                                        <td>{room.bookingCount}</td>
-                                        <td>{room.totalHours.toFixed(1)} jam</td>
-                                        <td>{percentage}%</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                    <div className="overflow-x-auto">
+                        <table className="report-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Ruangan</th>
+                                    <th>Kapasitas</th>
+                                    <th>Jumlah Pemesanan</th>
+                                    <th>Total Jam Penggunaan</th>
+                                    <th>Persentase</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.roomStats.map((room, idx) => {
+                                    const percentage = data.stats.approved > 0
+                                        ? ((room.bookingCount / data.stats.approved) * 100).toFixed(1)
+                                        : 0;
+                                    return (
+                                        <tr key={idx}>
+                                            <td>{idx + 1}</td>
+                                            <td className="font-medium">{room.name}</td>
+                                            <td>{room.capacity} orang</td>
+                                            <td>{room.bookingCount}</td>
+                                            <td>{room.totalHours.toFixed(1)} jam</td>
+                                            <td>{percentage}%</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 {/* Top Users */}
@@ -222,26 +224,28 @@ export default function MonthlyReportView({ data, currentMonth, currentYear }) {
                         <Users size={20} className="text-primary" />
                         10 Pengguna Teratas
                     </h3>
-                    <table className="report-table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Jumlah Pemesanan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.topUsers.map((user, idx) => (
-                                <tr key={idx}>
-                                    <td>{idx + 1}</td>
-                                    <td className="font-medium">{user.name}</td>
-                                    <td>{user.email}</td>
-                                    <td>{user.bookingCount}</td>
+                    <div className="overflow-x-auto">
+                        <table className="report-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Jumlah Pemesanan</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {data.topUsers.map((user, idx) => (
+                                    <tr key={idx}>
+                                        <td>{idx + 1}</td>
+                                        <td className="font-medium">{user.name}</td>
+                                        <td>{user.email}</td>
+                                        <td>{user.bookingCount}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 {/* Detailed Bookings */}
@@ -250,39 +254,41 @@ export default function MonthlyReportView({ data, currentMonth, currentYear }) {
                         <Calendar size={20} className="text-primary" />
                         Detail Pemesanan
                     </h3>
-                    <table className="report-table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Waktu</th>
-                                <th>Judul</th>
-                                <th>Ruangan</th>
-                                <th>Pemohon</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.bookings.map((booking, idx) => (
-                                <tr key={idx}>
-                                    <td>{idx + 1}</td>
-                                    <td>{format(new Date(booking.startTime), 'd MMM yyyy', { locale: id })}</td>
-                                    <td>
-                                        {format(new Date(booking.startTime), 'HH:mm')} -
-                                        {format(new Date(booking.endTime), 'HH:mm')}
-                                    </td>
-                                    <td className="font-medium">{booking.title}</td>
-                                    <td>{booking.room.name}</td>
-                                    <td>{booking.user.name}</td>
-                                    <td>
-                                        <span className={`status-badge ${booking.status.toLowerCase()}`}>
-                                            {booking.status}
-                                        </span>
-                                    </td>
+                    <div className="overflow-x-auto">
+                        <table className="report-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Waktu</th>
+                                    <th>Judul</th>
+                                    <th>Ruangan</th>
+                                    <th>Pemohon</th>
+                                    <th>Status</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {data.bookings.map((booking, idx) => (
+                                    <tr key={idx}>
+                                        <td>{idx + 1}</td>
+                                        <td>{format(new Date(booking.startTime), 'd MMM yyyy', { locale: id })}</td>
+                                        <td>
+                                            {format(new Date(booking.startTime), 'HH:mm')} -
+                                            {format(new Date(booking.endTime), 'HH:mm')}
+                                        </td>
+                                        <td className="font-medium">{booking.title}</td>
+                                        <td>{booking.room.name}</td>
+                                        <td>{booking.user.name}</td>
+                                        <td>
+                                            <span className={`status-badge ${booking.status.toLowerCase()}`}>
+                                                {booking.status}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 {/* Footer for print */}
