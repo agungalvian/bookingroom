@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { Calendar, Clock, Users, CheckCircle, XCircle, AlertCircle } from "lucide-react";
 
-export default async function HomePage() {
+export default async function Dashboard() {
   const session = await auth();
 
   if (!session) {
@@ -159,9 +159,9 @@ export default async function HomePage() {
                   </p>
                 </div>
                 <span className={`px-3 py-1 rounded-full text-sm font-semibold ${booking.status === 'APPROVED' ? 'bg-green-100 text-green-600' :
-                    booking.status === 'REJECTED' ? 'bg-red-100 text-red-600' :
-                      booking.status === 'PENDING' ? 'bg-yellow-100 text-yellow-600' :
-                        'bg-gray-100 text-gray-600'
+                  booking.status === 'REJECTED' ? 'bg-red-100 text-red-600' :
+                    booking.status === 'PENDING' ? 'bg-yellow-100 text-yellow-600' :
+                      'bg-gray-100 text-gray-600'
                   }`}>
                   {booking.status}
                 </span>

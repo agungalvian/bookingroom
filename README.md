@@ -131,36 +131,43 @@ npm run dev
 
 ### Option 2: Production Mode (Full Docker)
 
-Semua service di Docker:
+Semua service di Docker (App + DB + pgAdmin).
+
+**Cara Mudah (Recommended):**
 
 ```bash
-# Berikan permission untuk script
+# Berikan permission eksekusi
 chmod +x start-production.sh
 
-# Jalankan script
+# Jalankan script ini (Otomatis build, start, migrate, & seed)
 ./start-production.sh
 ```
 
-Atau manual:
-```bash
-# Build dan start semua services
-docker-compose up --build -d
+**Cara Manual:**
 
-# Tunggu database siap, lalu run migrations
-docker-compose exec app npx prisma migrate deploy
-docker-compose exec app npx prisma db seed
-```
+1. Build & Start Container:
+   ```bash
+   docker-compose up --build -d
+   ```
 
-Akses:
-- **Aplikasi**: http://localhost:3000
-- **pgAdmin**: http://localhost:8080
+2. Jalankan Migrasi Database (PENTING: Wajib dijalankan di server baru):
+   ```bash
+   # Membuat tabel-tabel di database
+   docker-compose exec app npx prisma migrate deploy
+   ```
+
+3. Isi Data Awal (Optional):
+   ```bash
+   # Membuat user admin default
+   docker-compose exec app npx prisma db seed
+   ```
+
+Akses aplikasi:
+- **Web App**: http://localhost:4000 (Port 4000)
+- **Database**: Port 5454 (External access)
 
 Stop services:
 ```bash
-# Development
-docker-compose -f docker-compose.dev.yml down
-
-# Production
 docker-compose down
 ```
 
