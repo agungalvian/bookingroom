@@ -1,5 +1,6 @@
-import { auth, signIn } from "@/auth";
+import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import LoginForm from "@/components/LoginForm";
 
 export default async function SignInPage() {
     const session = await auth();
@@ -23,52 +24,7 @@ export default async function SignInPage() {
                     <p className="text-text-light mt-2">BP TAPERA</p>
                 </div>
 
-                <form
-                    action={async (formData) => {
-                        "use server";
-                        await signIn("credentials", {
-                            email: formData.get("email"),
-                            password: formData.get("password"),
-                            redirectTo: "/",
-                        });
-                    }}
-                    className="space-y-4"
-                >
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-text-dark mb-2">
-                            Email / Username
-                        </label>
-                        <input
-                            id="email"
-                            name="email"
-                            type="text"
-                            required
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                            placeholder="Email atau Username"
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-text-dark mb-2">
-                            Password
-                        </label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            required
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                            placeholder="••••••••"
-                        />
-                    </div>
-
-                    <button
-                        type="submit"
-                        className="w-full btn-primary py-3 rounded-lg font-semibold text-white"
-                    >
-                        Masuk
-                    </button>
-                </form>
+                <LoginForm />
 
             </div>
         </div>

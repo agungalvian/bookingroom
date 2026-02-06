@@ -40,7 +40,7 @@ export default function Navbar({ user, signOutAction }) {
                         <Link href="/calendar" className="flex items-center gap-2 text-text-dark hover:text-primary transition-colors">
                             <Calendar size={18} /> Kalendar
                         </Link>
-                        {user.role === 'ADMIN' && (
+                        {(user.role === 'ADMIN' || user.role === 'PENGELOLA') && (
                             <>
                                 <Link href="/admin" className="flex items-center gap-2 text-text-dark hover:text-primary transition-colors">
                                     <CheckCircle size={18} /> Konfirmasi
@@ -48,18 +48,22 @@ export default function Navbar({ user, signOutAction }) {
                                 <Link href="/admin/bookings" className="flex items-center gap-2 text-text-dark hover:text-primary transition-colors">
                                     <ClipboardList size={18} /> Pemesanan
                                 </Link>
-                                <Link href="/admin/users" className="flex items-center gap-2 text-text-dark hover:text-primary transition-colors">
-                                    <Users size={18} /> Users
-                                </Link>
+                                {user.role === 'ADMIN' && (
+                                    <Link href="/admin/users" className="flex items-center gap-2 text-text-dark hover:text-primary transition-colors">
+                                        <Users size={18} /> Users
+                                    </Link>
+                                )}
                                 <Link href="/admin/rooms" className="flex items-center gap-2 text-text-dark hover:text-primary transition-colors">
                                     <Users size={18} /> Ruangan
                                 </Link>
                                 <Link href="/admin/reports" className="flex items-center gap-2 text-text-dark hover:text-primary transition-colors">
                                     <PieChart size={18} /> Laporan
                                 </Link>
-                                <Link href="/admin/settings" className="flex items-center gap-2 text-text-dark hover:text-primary transition-colors">
-                                    <Settings size={18} /> Pengaturan
-                                </Link>
+                                {user.role === 'ADMIN' && (
+                                    <Link href="/admin/settings" className="flex items-center gap-2 text-text-dark hover:text-primary transition-colors">
+                                        <Settings size={18} /> Pengaturan
+                                    </Link>
+                                )}
                             </>
                         )}
                     </div>
@@ -110,7 +114,7 @@ export default function Navbar({ user, signOutAction }) {
                         <Link href="/calendar" onClick={closeMenu} className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 text-text-dark hover:text-primary transition-colors">
                             <Calendar size={20} /> Kalendar
                         </Link>
-                        {user.role === 'ADMIN' && (
+                        {(user.role === 'ADMIN' || user.role === 'PENGELOLA') && (
                             <>
                                 <Link href="/admin" onClick={closeMenu} className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 text-text-dark hover:text-primary transition-colors">
                                     <CheckCircle size={20} /> Konfirmasi
@@ -118,18 +122,22 @@ export default function Navbar({ user, signOutAction }) {
                                 <Link href="/admin/bookings" onClick={closeMenu} className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 text-text-dark hover:text-primary transition-colors">
                                     <ClipboardList size={20} /> Pemesanan
                                 </Link>
-                                <Link href="/admin/users" onClick={closeMenu} className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 text-text-dark hover:text-primary transition-colors">
-                                    <Users size={20} /> Users
-                                </Link>
+                                {user.role === 'ADMIN' && (
+                                    <Link href="/admin/users" onClick={closeMenu} className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 text-text-dark hover:text-primary transition-colors">
+                                        <Users size={20} /> Users
+                                    </Link>
+                                )}
                                 <Link href="/admin/rooms" onClick={closeMenu} className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 text-text-dark hover:text-primary transition-colors">
                                     <Users size={20} /> Ruangan
                                 </Link>
                                 <Link href="/admin/reports" onClick={closeMenu} className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 text-text-dark hover:text-primary transition-colors">
                                     <PieChart size={20} /> Laporan
                                 </Link>
-                                <Link href="/admin/settings" onClick={closeMenu} className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 text-text-dark hover:text-primary transition-colors">
-                                    <Settings size={20} /> Pengaturan
-                                </Link>
+                                {user.role === 'ADMIN' && (
+                                    <Link href="/admin/settings" onClick={closeMenu} className="flex items-center gap-3 p-2 rounded-lg hover:bg-green-50 text-text-dark hover:text-primary transition-colors">
+                                        <Settings size={20} /> Pengaturan
+                                    </Link>
+                                )}
                             </>
                         )}
                     </nav>
